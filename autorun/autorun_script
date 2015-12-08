@@ -1,0 +1,5 @@
+#!/bin/bash
+# Script to start our application
+echo "Doing autorun script..."
+stty -F /dev/ttyAMA0 9600
+sudo gpsd /dev/ttyAMA0 -F /var/run/gpsd.sock
