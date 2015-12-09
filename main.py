@@ -7,10 +7,15 @@ from my_bme import *
 from gps import *
 import threading
 
-trial_until_saving = 20
-data_type_num = 5
-interval_second = 30
-SAVE = False
+# for test
+trial_until_saving = 3
+interval_second = 3
+SAVE = True
+
+# for real use
+# trial_until_saving = 20
+# interval_second = 30
+# SAVE = True
 
 gpsd = None #seting the global variable
 gpsp_running = True
@@ -44,15 +49,20 @@ if __name__ == '__main__':
         gps_time = gpsd.utc
         height = gpsd.fix.altitude
         pressure,temperature,humidity = readData()
-        print gps_time, lati, long, height, pressure, temperature, humidity
+        print gps_time, latitude, longitude, height, pressure, temperature, humidity
 
         # if get gps data update data
         if latitude != 'nan' and longitude != 'nan' and height != 'nan':
             temp_data = [latitude,longitude,height,pressure,temperature,humidity]
         time.sleep(interval_second)
+      try:
+        temp_data
+      except NameError:
+        print 'No data to save!'
+        continue
       if SAVE==True:
         print '*'*10 + ' saving file ' +'*'*10
-        fd = open('log.csv','a')
+        fd = open('data/log.csv','a')
         fd.write(temp_data)
         fd.close()
         # all_data = np.resize(all_data,(data_num, data_type))
