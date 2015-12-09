@@ -69,9 +69,10 @@ if __name__ == '__main__':
 
 
       if SAVE==True:
-        print '*'*10 + ' saving file ' +'*'*10
+        print 'saving file'
         fd = open('data/log.csv','a')
-        fd.write(temp_data)
+        writer = csv.writer(fd, lineterminator='\n')
+        writer.writerow(temp_data)
         fd.close()
         # all_data = np.resize(all_data,(data_num, data_type))
         # np.savetxt('data/'+first_time+'.csv',all_data,delimiter=",")
