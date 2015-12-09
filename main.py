@@ -53,7 +53,8 @@ if __name__ == '__main__':
         print gps_time, latitude, longitude, height, pressure, temperature, humidity
 
         # if get gps data update data
-        if latitude != 'nan' and longitude != 'nan' and height != 'nan':
+        # if latitude != 'nan' and longitude != 'nan' and height != 'nan':
+        if not (math.isnan(latitude) or math.isnan(longitude) or math.isnan(height)):
             print 'saving data'
             temp_data = [latitude,longitude,height,pressure,temperature,humidity]
         time.sleep(interval_second)
@@ -65,6 +66,8 @@ if __name__ == '__main__':
       else:
         print temp_data
         print 'temp_data is defined'
+
+
       if SAVE==True:
         print '*'*10 + ' saving file ' +'*'*10
         fd = open('data/log.csv','a')
