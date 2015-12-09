@@ -6,6 +6,7 @@ from datetime import datetime
 from my_bme import *
 from gps import *
 import threading
+import math
 
 # for test
 trial_until_saving = 3
@@ -53,6 +54,7 @@ if __name__ == '__main__':
 
         # if get gps data update data
         if latitude != 'nan' and longitude != 'nan' and height != 'nan':
+            print 'saving data'
             temp_data = [latitude,longitude,height,pressure,temperature,humidity]
         time.sleep(interval_second)
       try:
@@ -60,6 +62,9 @@ if __name__ == '__main__':
       except NameError:
         print 'No data to save!'
         continue
+      else:
+        print temp_data
+        print 'temp_data is defined'
       if SAVE==True:
         print '*'*10 + ' saving file ' +'*'*10
         fd = open('data/log.csv','a')
