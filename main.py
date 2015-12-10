@@ -41,8 +41,6 @@ if __name__ == '__main__':
   try:
     gpsp.start() # start it up
     while True:
-      # x = []
-      # all_data = np.array(x)
 
       for i in range(trial_until_saving):
         latitude = gpsd.fix.latitude
@@ -50,32 +48,23 @@ if __name__ == '__main__':
         gps_time = gpsd.utc
         height = gpsd.fix.altitude
         pressure,temperature,humidity = readData()
-        print gps_time, latitude, longitude, height, pressure, temperature, humidity
+        print gps_time[0:10],gps_time[11:19], latitude, longitude, height, pressure, temperature, humidity
 
-        # if get gps data update data
-        # if latitude != 'nan' and longitude != 'nan' and height != 'nan':
         if not (math.isnan(latitude) or math.isnan(longitude) or math.isnan(height)):
-            print 'saving data'
-            temp_data = [latitude,longitude,height,pressure,temperature,humidity]
+            temp_data = [gps_time[0:10],gps_time[11:19],latitude,longitude,height,pressure,temperature,humidity]
         time.sleep(interval_second)
       try:
         temp_data
       except NameError:
         print 'No data to save!'
         continue
-      else:
-        print temp_data
-        print 'temp_data is defined'
-
 
       if SAVE==True:
-        print 'saving file'
+        print '*'*10 + 'saving file' + '*'*10
         fd = open('data/log.csv','a')
-        writer = csv.writer(fd, lineterminator='\n')
+        writer = csv.writer(fd)
         writer.writerow(temp_data)
         fd.close()
-        # all_data = np.resize(all_data,(data_num, data_type))
-        # np.savetxt('data/'+first_time+'.csv',all_data,delimiter=",")
  
   except (KeyboardInterrupt, SystemExit): #when you press ctrl+c
     print "\nKilling Thread..."
