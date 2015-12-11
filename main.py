@@ -3,7 +3,7 @@
 import time
 # import numpy as np
 from datetime import datetime
-from my_bme import *
+# from my_bme import *
 from gps import *
 import threading
 import math
